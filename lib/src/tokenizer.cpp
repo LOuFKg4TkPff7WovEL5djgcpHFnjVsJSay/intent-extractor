@@ -51,12 +51,17 @@ static inline void lower_case_string(std::string& out, std::string_view input) {
 }
 
 TokenList Tokenizer::tokenize(StringInterner& interner, std::string_view input) {
+    TokenList result;
+    tokenize_into(interner, input, result);
+    return result;
+}
+
+void Tokenizer::tokenize_into(StringInterner &interner, std::string_view input, TokenList &outTokens) {
     if (input.empty()) {
-        return {};
+        outTokens.clear();
     }
 
-    TokenList result;
-    result.reserve(8);
+    outTokens.reserve(8);
     std::string tmp_string;
 
     auto it = input.begin();
@@ -78,7 +83,7 @@ TokenList Tokenizer::tokenize(StringInterner& interner, std::string_view input) 
             if (!tmp_string.empty()) {
                 const auto opt_token = convert_to_token(interner, tmp_string);
                 if (opt_token) {
-                    result.push_back(*opt_token);
+                    outTokens.push_back(*opt_token);
                 }
                 tmp_string.clear();
             }
@@ -113,10 +118,9 @@ TokenList Tokenizer::tokenize(StringInterner& interner, std::string_view input) 
     if (!tmp_string.empty()) {
         const auto opt_token = convert_to_token(interner, tmp_string);
         if (opt_token) {
-            result.push_back(*opt_token);
+            outTokens.push_back(*opt_token);
         }
     }
-    return result;
 }
 
 bool Tokenizer::is_filler_world(const std::string& word) const {
@@ -136,5 +140,6 @@ std::optional<InternedString> Tokenizer::convert_to_token(StringInterner& intern
     // Intern result;
     return interner.get_or_intern(string);
 }
+
 
 }    // namespace ie

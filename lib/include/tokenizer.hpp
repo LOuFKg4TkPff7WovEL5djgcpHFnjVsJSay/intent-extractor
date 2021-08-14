@@ -38,6 +38,9 @@ class Tokenizer {
     /// Generate a list of tokens from a sentence.
     TokenList tokenize(StringInterner& interner, std::string_view input);
 
+    /// Generate a list of tokens from a sentence.
+    void tokenize_into(StringInterner& interner, std::string_view input, TokenList& outTokens);
+
    private:
     bool is_filler_world(const std::string& word) const;
 
