@@ -28,7 +28,7 @@ struct TestIntent2 final : ie::Intent {
     void log_result(std::ostream& stream) const override { stream << "Test Intent2"; }
 };
 
-IE_DERIVE_INTENT_BUILDER(TestIntent, "test", "test_alt");
+IE_DERIVE_INTENT_BUILDER(TestIntent, "test", "testalt");
 IE_DERIVE_INTENT_BUILDER(TestIntent2, "test2");
 
 struct IntentExtractorTest {
@@ -61,14 +61,14 @@ TEST_CASE_METHOD(IntentExtractorTest, "IntentExtractor: basic test") {
 }
 
 TEST_CASE_METHOD(IntentExtractorTest, "IntentExtractor: basic test alt ") {
-    const std::string_view input = "This is a test_alt!";
+    const std::string_view input = "This is a testalt!";
     const auto result = extractor.extract_intent(input);
     CHECK(result.result == ie::IntentExtractorResult::Ok);
     if (result.result == ie::IntentExtractorResult::Ok) {
         CHECK(result.intent->name() == TestIntent::NAME);
         CHECK(result.start_of_keyword == 10);
-        CHECK(result.length_of_keyword == 4);
-        CHECK(input.substr(result.start_of_keyword, result.length_of_keyword) == "test_alt");
+        CHECK(result.length_of_keyword == 7);
+        CHECK(input.substr(result.start_of_keyword, result.length_of_keyword) == "testalt");
     }
 }
 
