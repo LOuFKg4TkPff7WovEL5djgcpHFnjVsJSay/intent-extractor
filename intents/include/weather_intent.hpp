@@ -4,9 +4,9 @@
 #include <date_time_entity.hpp>
 #include <location_entity.hpp>
 
-
 namespace ie {
-
+    /// Weather intent gets triggered by either the weather or temperature keywords. It then tries to
+    /// find optional location and date/time information using entities.
     class WeatherIntent final : public Intent {
     public:
         bool initialize(IntentExtractor& extractor) override;
