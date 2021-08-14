@@ -9,7 +9,7 @@ namespace ie {
     public:
         ~Entity() = default;
 
-        virtual void scan_tokens(const std::size_t intent_location, std::span<Token>) = 0;
+        virtual void scan_tokens(const std::size_t intent_location, std::string_view text, std::span<Token>) = 0;
     };
 
 }
