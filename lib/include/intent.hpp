@@ -7,12 +7,15 @@
 namespace ie {
 class InternedString;
 class Token;
+class IntentExtractor;
 
 /// Represents an intent type. Once an intent has been located, it can scan the remaining tokens for
 /// entities of interest.
 class Intent {
    public:
     virtual ~Intent() = default;
+
+    virtual bool initialize(IntentExtractor& extractor) {return true;}
 
     virtual std::string_view name() const = 0;
 

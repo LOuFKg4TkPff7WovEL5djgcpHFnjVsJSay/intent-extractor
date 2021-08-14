@@ -58,12 +58,12 @@ struct IntentExtractorTest {
 TEST_CASE_METHOD(IntentExtractorTest, "IntentExtractor: basic test") {
     const std::string_view input = "This is a Test!";
     const auto result = extractor.extract_intent(input);
-    CHECK(result);
-    if (result) {
-        CHECK(result->intent->name() == TestIntent::NAME);
-        CHECK(result->start_of_keyword == 10);
-        CHECK(result->length_of_keyword == 4);
-        CHECK(input.substr(result->start_of_keyword, result->length_of_keyword) == "Test");
+    CHECK(result.result == ie::IntentExtractorResult::Ok);
+    if (result.result == ie::IntentExtractorResult::Ok) {
+        CHECK(result.intent->name() == TestIntent::NAME);
+        CHECK(result.start_of_keyword == 10);
+        CHECK(result.length_of_keyword == 4);
+        CHECK(input.substr(result.start_of_keyword, result.length_of_keyword) == "Test");
     }
 }
 
@@ -71,9 +71,9 @@ TEST_CASE_METHOD(IntentExtractorTest, "IntentExtractor: more than one intent") {
     // Check that the returned result is the first matching intent
     const std::string_view input = "This ,test2, is a Test!";
     const auto result = extractor.extract_intent(input);
-    CHECK(result);
-    if (result) {
-        CHECK(result->intent->name() == TestIntent2::NAME);
-        CHECK(input.substr(result->start_of_keyword, result->length_of_keyword) == "test2");
+    CHECK(result.result == ie::IntentExtractorResult::Ok);
+    if (result.result == ie::IntentExtractorResult::Ok) {
+        CHECK(result.intent->name() == TestIntent2::NAME);
+        CHECK(input.substr(result.start_of_keyword, result.length_of_keyword) == "test2");
     }
 }

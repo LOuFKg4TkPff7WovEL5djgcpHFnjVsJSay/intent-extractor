@@ -9,10 +9,18 @@
 namespace ie {
 class Intent;
 
-struct IntentExtractorResult {
+
+enum class IntentExtractorResult {
+    Ok = 0,
+    CouldNotFindIntent,
+    IntentFailedToInit,
+};
+
+struct IntentExtractorResultValue {
     std::unique_ptr<Intent> intent;
     std::size_t start_of_keyword;
     std::size_t length_of_keyword;
+    IntentExtractorResult result;
 };
 
 /// Scans a given input and resolves a possible intent
@@ -32,7 +40,7 @@ class IntentExtractor {
     IntentFactory& intent_factory() { return m_itnent_factory; }
 
     /// Extract the intent from the given text
-    std::optional<IntentExtractorResult> extract_intent(std::string_view text);
+    IntentExtractorResultValue extract_intent(std::string_view text);
 
    private:
     StringInterner m_string_interner;

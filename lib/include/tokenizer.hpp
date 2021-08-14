@@ -46,6 +46,8 @@ class Tokenizer {
 
     void set_stemmer(std::unique_ptr<Stemmer>&& stemmer);
 
+    Stemmer* stemmer() {return m_stemmer.get();}
+
     void initialize_with_default_filler_lister(StringInterner& interner);
 
     void initialize_with_filler_list(StringInterner&, std::span<std::string_view> filler_words);
