@@ -57,3 +57,28 @@ into a plugin based system. The current system should work as in on Unix with GC
 changes might be required to the interfaces due to platform local limitations. 
 
 All string as internalized to enable us to perform fast string comparisons, since we this is a quite common operation.
+
+### Included Intent Recognizers
+Please consult the implementation of each intent in `intents` folder for more details.
+#### Weather
+Is triggered by keywords `weather` and `temperature`. Will also try to locate information about the date/time and the 
+location.
+```
+How may I help you today?
+> What is the weather Today?
+Intent: Get Weather TimeDate:Today
+
+How may I help you today?
+> In Paris what are the temperatures?
+Intent: Get Weather Location:Paris
+```
+
+### Facts
+Is triggered by the keyword `fact`. Will also use simplistic search to try to find a related subject, if said subject is
+located after the keyword. 
+
+```
+How may I help you today?
+> What are some facts about birds?
+Intent: Get Fact Subject:birds
+```
