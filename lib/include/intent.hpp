@@ -33,12 +33,21 @@ class Intent {
 class IntentBuilder {
    public:
     virtual ~IntentBuilder() = default;
+
+    /// Return list of keywords that activate this itentn
+    virtual std::span<const std::string_view> keywords() const = 0;
     /// Create new instance of this intent
     virtual std::unique_ptr<Intent> create() const = 0;
 };
 }    // namespace ie
 
-#define IE_DERIVE_INTENT_BUILD(class)                                                             \
+/// Derive the builders for the intent classes.
+/// E.g.: IE_DERIVE_INTENT_BUILDER(MyIntent, "MyKeyword1", "MyKeyWord2")
+#define IE_DERIVE_INTENT_BUILDER(class, ...)                                                      \
     struct class##Builder final : public ie::IntentBuilder {                                      \
         std::unique_ptr<ie::Intent> create() const override { return std::make_unique<class>(); } \
+        std::span<const std::string_view> keywords() const override {                             \
+            static const std::string_view KEYWORDS[] = {__VA_ARGS__};                             \
+            return KEYWORDS;                                                                      \
+        }                                                                                         \
     }

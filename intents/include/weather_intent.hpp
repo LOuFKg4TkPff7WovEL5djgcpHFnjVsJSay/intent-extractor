@@ -30,5 +30,5 @@ namespace ie {
         DateTimeEntity m_date_time_entity;
     };
 
-    IE_DERIVE_INTENT_BUILD(WeatherIntent);
+    IE_DERIVE_INTENT_BUILDER(WeatherIntent, "weather", "temperature");
 }

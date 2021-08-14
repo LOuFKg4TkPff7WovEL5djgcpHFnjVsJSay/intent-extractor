@@ -26,8 +26,9 @@ class IntentFactory final {
     IntentFactory(IntentFactory&&) noexcept = default;
     IntentFactory& operator=(IntentFactory&&) noexcept = default;
 
-    IntentFactoryRegistrationResult register_builder(const IntentBuilderPtr& builder,
-                                                     std::span<const InternedString> key_words);
+    /// Register a new builder with this factory
+    IntentFactoryRegistrationResult register_builder(StringInterner& internet,
+                                                     const IntentBuilderPtr& builder);
 
     /// Create a new instance of an intent based on a keyword
     /// \return null if no matching intent was found

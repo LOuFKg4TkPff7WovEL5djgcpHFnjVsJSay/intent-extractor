@@ -8,15 +8,9 @@ struct WeatherIntentTest {
     ie::IntentExtractor extractor;
 
     WeatherIntentTest() {
-        const ie::InternedString key_words[] = {
-                extractor.string_interner().get_or_intern(std::string_view("temperature")),
-                extractor.string_interner().get_or_intern(std::string_view("weather")),
-        };
-        {
-            const auto register_result = extractor.intent_factory().register_builder(
-                    std::make_shared<ie::WeatherIntentBuilder>(), key_words);
-            REQUIRE(register_result == ie::IntentFactoryRegistrationResult::Ok);
-        }
+        const auto register_result = extractor.intent_factory().register_builder(
+            extractor.string_interner(), std::make_shared<ie::WeatherIntentBuilder>());
+        REQUIRE(register_result == ie::IntentFactoryRegistrationResult::Ok);
     }
 };
 
