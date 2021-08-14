@@ -6,7 +6,9 @@ add_library(intents STATIC)
 
 target_sources(intents PRIVATE
     include/weather_intent.hpp
+    include/fact_intent.hpp
     src/weather_intent.cpp
+    src/fact_intent.cpp
 )
 
 target_link_libraries(intents

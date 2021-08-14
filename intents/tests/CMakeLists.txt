@@ -6,6 +6,7 @@ add_executable(intent_tests)
 
 target_sources(intent_tests PRIVATE
     test_weather_intent.cpp
+    test_fact_intent.cpp
 )
 
 target_link_libraries(intent_tests PRIVATE
