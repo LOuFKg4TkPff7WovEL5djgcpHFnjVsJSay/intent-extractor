@@ -9,8 +9,10 @@ struct TestIntent final : ie::Intent {
 
     std::string_view name() const override { return NAME; }
 
-    void scan_for_entities(std::size_t location_of_intent, std::span<ie::InternedString>) override {
-        location = location_of_intent;
+    void scan_for_entities(std::size_t location_of_intent,
+                           std::string_view,
+                           std::span<ie::Token> tokens) override {
+        location = tokens[location_of_intent].start;
     }
 
     void log_result(std::ostream& stream) const override { stream << "Test Intent"; }
@@ -33,9 +35,13 @@ struct IntentExtractorTest {
 };
 
 TEST_CASE_METHOD(IntentExtractorTest, "IntentExtractor: basic test") {
-    const auto result = extractor.extract_intent("This is a test");
+    const std::string_view input = "This is a Test!";
+    const auto result = extractor.extract_intent(input);
     CHECK(result);
     if (result) {
         CHECK(result->intent->name() == TestIntent::NAME);
+        CHECK(result->start_of_keyword == 10);
+        CHECK(result->length_of_keyword == 4);
+        CHECK(input.substr(result->start_of_keyword, result->length_of_keyword) == "Test");
     }
 }

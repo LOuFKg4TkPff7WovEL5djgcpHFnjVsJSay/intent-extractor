@@ -8,12 +8,27 @@
 #include <vector>
 
 #include <span.hpp>
+#include <string_interner.hpp>
 
 namespace ie {
-class InternedString;
-class StringInterner;
 class Stemmer;
-using TokenList = std::vector<InternedString>;
+
+struct Token {
+    InternedString processed;
+    std::size_t start;
+    std::size_t length;
+
+    bool operator==(const Token& rhs) const {
+        return processed == rhs.processed && start == rhs.start && length == rhs.length;
+    }
+    bool operator!=(const Token& rhs) const { return !(*this == rhs); }
+    friend std::ostream& operator<<(std::ostream& stream, const Token& t) {
+        stream << "{s:" << t.processed << " start:" << t.start << " len:" << t.length << "}";
+        return stream;
+    }
+};
+
+using TokenList = std::vector<Token>;
 
 /// Converts a string to list of tokens more suitable for analysis. The tokenizer may perform the
 /// following operations:

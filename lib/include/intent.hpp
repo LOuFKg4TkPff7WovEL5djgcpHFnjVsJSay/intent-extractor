@@ -1,10 +1,12 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
 #include <span.hpp>
 
 namespace ie {
 class InternedString;
+class Token;
 
 /// Represents an intent type. Once an intent has been located, it can scan the remaining tokens for
 /// entities of interest.
@@ -17,7 +19,8 @@ class Intent {
     /// Search remaining tokens for entities of interest.
     /// \param location_of_intent Index of the the current intent in the token list
     virtual void scan_for_entities(std::size_t location_of_intent,
-                                   std::span<InternedString> tokens) = 0;
+                                   std::string_view original_text,
+                                   std::span<Token> tokens) = 0;
 
     /// Log the intent to the given stream
     virtual void log_result(std::ostream& stream) const = 0;

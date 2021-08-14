@@ -66,4 +66,4 @@ namespace std {
             return std::hash<std::string_view>()(str.view());
         }
     };
-}
+    }    // namespace std

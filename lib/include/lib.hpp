@@ -11,6 +11,8 @@ class Intent;
 
 struct IntentExtractorResult {
     std::unique_ptr<Intent> intent;
+    std::size_t start_of_keyword;
+    std::size_t length_of_keyword;
 };
 
 /// Scans a given input and resolves a possible intent

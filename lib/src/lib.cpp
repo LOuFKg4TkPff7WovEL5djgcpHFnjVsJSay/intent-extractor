@@ -20,11 +20,11 @@ std::optional<IntentExtractorResult> IntentExtractor::extract_intent(std::string
     /// try to locate the first valid intent based on all the words available
     for (auto it = m_tokens.begin(); it != m_tokens.end(); ++it) {
         const auto& token = *it;
-        auto intent = m_itnent_factory.create_intent(token);
+        auto intent = m_itnent_factory.create_intent(token.processed);
         if (intent) {
-            std::size_t distance = static_cast<size_t>(std::distance(it, m_tokens.begin()));
-            intent->scan_for_entities(distance, m_tokens);
-            return IntentExtractorResult{std::move(intent)};
+            std::size_t distance = static_cast<size_t>(std::distance(m_tokens.begin(), it));
+            intent->scan_for_entities(distance, text, m_tokens);
+            return IntentExtractorResult{std::move(intent), token.start, token.length};
         }
     }
     // Failed to locate any intent

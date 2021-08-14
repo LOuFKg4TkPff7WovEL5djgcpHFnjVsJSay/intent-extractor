@@ -65,6 +65,7 @@ void Tokenizer::tokenize_into(StringInterner &interner, std::string_view input, 
 
     auto it = input.begin();
     auto it_end = input.end();
+    auto last_token_start = input.begin();
     auto peek = [](auto it, auto it_end) -> std::optional<char> {
         if (it != it_end) {
             ++it;
@@ -78,18 +79,6 @@ void Tokenizer::tokenize_into(StringInterner &interner, std::string_view input, 
     while (it != input.end()) {
         const char ch = *it;
 
-        if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r') {
-            if (!tmp_string.empty()) {
-                const auto opt_token = convert_to_token(interner, tmp_string);
-                if (opt_token) {
-                    outTokens.push_back(*opt_token);
-                }
-                tmp_string.clear();
-            }
-            ++it;
-            continue;
-        }
-
         // handle 's case
         if (ch == '\'') {
             const auto peeked_char = peek(it, it_end);
@@ -101,8 +90,20 @@ void Tokenizer::tokenize_into(StringInterner &interner, std::string_view input, 
             }
         }
 
-        if (std::ispunct(ch)) {
+        if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r' || std::ispunct(ch)) {
+            if (!tmp_string.empty()) {
+                const auto opt_token = convert_to_token(interner, tmp_string);
+                if (opt_token) {
+                    const std::size_t token_offset =
+                        static_cast<size_t>(std::distance(input.begin(), last_token_start));
+                    const std::size_t token_length =
+                        static_cast<size_t>(std::distance(last_token_start, it));
+                    outTokens.push_back(Token{*opt_token, token_offset, token_length});
+                }
+                tmp_string.clear();
+            }
             ++it;
+            last_token_start = it;
             continue;
         }
 
@@ -117,7 +118,9 @@ void Tokenizer::tokenize_into(StringInterner &interner, std::string_view input, 
     if (!tmp_string.empty()) {
         const auto opt_token = convert_to_token(interner, tmp_string);
         if (opt_token) {
-            outTokens.push_back(*opt_token);
+            const std::size_t token_start =
+                static_cast<size_t>(std::distance(input.begin(), last_token_start));
+            outTokens.push_back(Token{*opt_token, token_start, input.size() - token_start});
         }
     }
 }

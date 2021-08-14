@@ -9,11 +9,14 @@ target_sources(intent_extractor_lib PRIVATE
     include/string_interner.hpp
     include/tokenizer.hpp
     include/stemmer.hpp
+    include/intent.hpp
+    include/intent_factory.hpp
 
     src/lib.cpp
     src/string_interner.cpp
     src/tokenizer.cpp
     src/stemmer.cpp
+    src/intent_factory.cpp
 )
 
 target_link_libraries(intent_extractor_lib
