@@ -1,0 +1,8 @@
+//
+// Created by lbb on 8/14/21.
+//
+
+#ifndef INTENTEXTRACTOR_INTENT_HPP
+#define INTENTEXTRACTOR_INTENT_HPP
+
+#endif //INTENTEXTRACTOR_INTENT_HPP

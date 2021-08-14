@@ -5,7 +5,9 @@
 add_executable(intent_extractor_lib_tests)
 
 target_sources(intent_extractor_lib_tests PRIVATE
-    test.cpp
+    test_string_interner.cpp
+    test_tokenizer.cpp
+    test_stemmer.cpp
 )
 
 target_link_libraries(intent_extractor_lib_tests PRIVATE
@@ -15,4 +17,4 @@ target_link_libraries(intent_extractor_lib_tests PRIVATE
     thirdparty_catch2_main
 )
 
-add_test(intent_extractor_lib_tests IntentExtractorLib)
+add_test(NAME IntententExtractorLib COMMAND intent_extractor_lib_tests)
