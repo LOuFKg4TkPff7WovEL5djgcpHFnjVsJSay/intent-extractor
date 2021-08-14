@@ -8,4 +8,4 @@ target_sources(intent_extractor PRIVATE
     src/main.cpp
 )
 
-target_link_libraries(intent_extractor PRIVATE intent_extractor_lib)
+target_link_libraries(intent_extractor PRIVATE intent_extractor_lib intents)
