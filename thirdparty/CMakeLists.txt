@@ -38,4 +38,4 @@ target_compile_definitions(thirdparty_fmt INTERFACE FMT_HEADER_ONLY=1)
 # span - implementation of std::span for c++11 - c++17
 #
 add_library(thirdparty_span INTERFACE)
-target_include_directories(thirdparty_span INTERFACE ${CMAKE_CURRENT_SOURECE_DIR}/include)
+target_include_directories(thirdparty_span INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/span/include)
