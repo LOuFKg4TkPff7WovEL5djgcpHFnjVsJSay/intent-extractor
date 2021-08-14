@@ -7,6 +7,7 @@ static const std::string_view STEM_SUFFIX_TABLE[] = {
     "'s",
     "ed",
     "ly",
+    "s",
 };
 
 bool DefaultStemmer::stem(std::string& string) {
