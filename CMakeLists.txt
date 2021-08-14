@@ -25,5 +25,9 @@ add_subdirectory(thirdparty)
 # Main library with all the logic
 add_subdirectory(lib)
 
+# Collection of entities and intents
+add_subdirectory(entities)
+add_subdirectory(intents)
+
 # Command line utility
 add_subdirectory(bin)
