@@ -1,6 +1,3 @@
-[submodule "thirdparty/fmt"]
-	path = thirdparty/fmt
-	url = https://github.com/fmtlib/fmt.git
 [submodule "thirdparty/span"]
 	path = thirdparty/span
 	url = https://github.com/tcbrindle/span.git

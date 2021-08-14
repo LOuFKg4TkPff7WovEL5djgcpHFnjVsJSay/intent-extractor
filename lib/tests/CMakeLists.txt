@@ -13,7 +13,6 @@ target_sources(intent_extractor_lib_tests PRIVATE
 
 target_link_libraries(intent_extractor_lib_tests PRIVATE
     intent_extractor_lib
-    thirdparty_fmt
     thirdparty_catch2
     thirdparty_catch2_main
 )

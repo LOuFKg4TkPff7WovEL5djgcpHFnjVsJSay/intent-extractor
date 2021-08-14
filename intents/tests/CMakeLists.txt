@@ -11,7 +11,6 @@ target_sources(intent_tests PRIVATE
 
 target_link_libraries(intent_tests PRIVATE
     intents
-    thirdparty_fmt
     thirdparty_catch2
     thirdparty_catch2_main
 )

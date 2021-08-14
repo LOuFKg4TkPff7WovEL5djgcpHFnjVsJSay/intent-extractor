@@ -27,14 +27,6 @@ endif()
 target_link_libraries(thirdparty_catch2_main PRIVATE thirdparty_catch2)
 
 #
-# fmt formatting library - use header only version for this example, ideally we'd want this
-# compiled as well. v8.0.1
-#
-add_library(thirdparty_fmt INTERFACE)
-target_include_directories(thirdparty_fmt INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/fmt/include)
-target_compile_definitions(thirdparty_fmt INTERFACE FMT_HEADER_ONLY=1)
-
-#
 # span - implementation of std::span for c++11 - c++17
 #
 add_library(thirdparty_span INTERFACE)
