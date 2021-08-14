@@ -58,3 +58,12 @@ class StringInterner {
     std::unordered_set<std::string> m_strings;
 };
 }    // namespace ie
+
+namespace std {
+    template<>
+    struct hash<ie::InternedString> {
+        std::size_t operator()(const ie::InternedString& str) const {
+            return std::hash<std::string_view>()(str.view());
+        }
+    };
+}
