@@ -24,9 +24,8 @@ void Tokenizer::set_stemmer(std::unique_ptr<Stemmer>&& stemmer) {
 }
 
 void Tokenizer::initialize_with_default_filler_lister(StringInterner& interner) {
-    const char* filler_words[] = {
-        "the", "a", "in", "about", "as", "form", "to", "like", "is",
-    };
+    const char* filler_words[] = {"the",  "a",  "in",   "about", "as",
+                                  "form", "to", "like", "is",    "an"};
 
     m_filler_words.clear();
     m_filler_words.reserve(sizeof(filler_words) / sizeof(filler_words[0]));
